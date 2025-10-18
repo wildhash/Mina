@@ -45,10 +45,10 @@ cp examples/useMinaSearch.ts your-frontend/hooks/useMinaSearch.ts
 import { useMinaSearch } from '@/hooks/useMinaSearch';
 
 export default function SearchPage() {
-  const { results, loading, error, search } = useMinaSearch();
+  const { results, loading, error, searchREST } = useMinaSearch();
 
   const handleSearch = () => {
-    search({
+    searchREST({
       category: 'laptop',
       budget_max: 3000,
       priorities: ['Performance', 'Battery Life'],
@@ -262,14 +262,14 @@ import { useMinaSearch } from '@/hooks/useMinaSearch';
 import { useState } from 'react';
 
 export default function SearchInterface() {
-  const { results, loading, error, progress, searchWithWebSocket } = useMinaSearch(true);
+  const { results, loading, error, progress, searchWebSocket } = useMinaSearch();
   const [category, setCategory] = useState('laptop');
   const [budget, setBudget] = useState(3000);
   const [priorities, setPriorities] = useState(['Performance', 'Battery Life']);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    searchWithWebSocket({
+    searchWebSocket({
       category: category as 'laptop' | 'furniture' | 'appliance',
       budget_max: budget,
       priorities: priorities,

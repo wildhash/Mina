@@ -27,8 +27,8 @@ export interface UseMinaSearchResult {
   progress: string | null;
   
   // Actions
-  search: (requirements: SearchRequirements) => Promise<void>;
-  searchWithWebSocket: (requirements: SearchRequirements) => void;
+  searchREST: (requirements: SearchRequirements) => Promise<void>;
+  searchWebSocket: (requirements: SearchRequirements) => void;
   clearResults: () => void;
   clearError: () => void;
 }
@@ -36,16 +36,15 @@ export interface UseMinaSearchResult {
 /**
  * Custom hook for managing Mina product search
  * 
- * @param useWebSocket - Whether to use WebSocket for real-time updates (default: false)
  * @returns Search state and actions
  * 
  * @example
  * ```tsx
  * function SearchComponent() {
- *   const { results, loading, error, search } = useMinaSearch();
+ *   const { results, loading, error, searchREST } = useMinaSearch();
  * 
  *   const handleSearch = () => {
- *     search({
+ *     searchREST({
  *       category: 'laptop',
  *       budget_max: 3000,
  *       priorities: ['Performance', 'Battery Life']
@@ -71,7 +70,7 @@ export interface UseMinaSearchResult {
  * }
  * ```
  */
-export function useMinaSearch(useWebSocket = false): UseMinaSearchResult {
+export function useMinaSearch(): UseMinaSearchResult {
   const [client] = useState(() => new MinaAPIClient());
   const [results, setResults] = useState<SearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
@@ -83,6 +82,9 @@ export function useMinaSearch(useWebSocket = false): UseMinaSearchResult {
   useEffect(() => {
     return () => {
       if (ws) {
+        ws.onmessage = null;
+        ws.onerror = null;
+        ws.onclose = null;
         ws.close();
       }
     };
@@ -91,7 +93,7 @@ export function useMinaSearch(useWebSocket = false): UseMinaSearchResult {
   /**
    * Perform search using REST API (simple, single response)
    */
-  const search = useCallback(async (requirements: SearchRequirements) => {
+  const searchREST = useCallback(async (requirements: SearchRequirements) => {
     setLoading(true);
     setError(null);
     setProgress('Starting search...');
@@ -112,7 +114,7 @@ export function useMinaSearch(useWebSocket = false): UseMinaSearchResult {
   /**
    * Perform search using WebSocket (real-time progress updates)
    */
-  const searchWithWebSocket = useCallback((requirements: SearchRequirements) => {
+  const searchWebSocket = useCallback((requirements: SearchRequirements) => {
     setLoading(true);
     setError(null);
     setResults(null);
@@ -120,6 +122,9 @@ export function useMinaSearch(useWebSocket = false): UseMinaSearchResult {
 
     // Close existing connection if any
     if (ws) {
+      ws.onmessage = null;
+      ws.onerror = null;
+      ws.onclose = null;
       ws.close();
     }
 
@@ -166,7 +171,7 @@ export function useMinaSearch(useWebSocket = false): UseMinaSearchResult {
     );
 
     setWs(newWs);
-  }, [client, ws]);
+  }, [client]); // Removed ws from dependencies to avoid recreation
 
   /**
    * Clear search results
@@ -188,8 +193,8 @@ export function useMinaSearch(useWebSocket = false): UseMinaSearchResult {
     loading,
     error,
     progress,
-    search: useWebSocket ? searchWithWebSocket : search,
-    searchWithWebSocket,
+    searchREST,
+    searchWebSocket,
     clearResults,
     clearError,
   };
@@ -202,10 +207,10 @@ export function useMinaSearch(useWebSocket = false): UseMinaSearchResult {
  * import { useMinaSearch } from '@/hooks/useMinaSearch';
  * 
  * export default function SearchPage() {
- *   const { results, loading, error, progress, searchWithWebSocket } = useMinaSearch(true);
+ *   const { results, loading, error, progress, searchWebSocket } = useMinaSearch();
  *   
  *   const handleSearch = () => {
- *     searchWithWebSocket({
+ *     searchWebSocket({
  *       category: 'laptop',
  *       budget_max: 3000,
  *       priorities: ['Performance', 'Battery Life'],

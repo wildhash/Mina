@@ -68,10 +68,11 @@ export class MinaAPIClient {
   private baseUrl: string;
   private wsUrl: string;
 
-  constructor() {
-    // Use environment variable or fallback to localhost
-    this.baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-    this.wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8000';
+  constructor(baseUrl?: string, wsUrl?: string) {
+    // Use provided URL, environment variable, or fallback to localhost
+    // Note: In production, always set NEXT_PUBLIC_API_URL and NEXT_PUBLIC_WS_URL
+    this.baseUrl = baseUrl || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    this.wsUrl = wsUrl || process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8000';
   }
 
   /**
