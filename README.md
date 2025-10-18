@@ -11,6 +11,7 @@ Mina researches premium products across retailers, analyzes reviews, and deliver
 - 🤖 **AI-Powered Analysis**: Claude Sonnet 4 analyzes reviews, specs, and value propositions
 - 🔒 **Safe Code Execution**: Daytona sandbox for secure data processing
 - 📊 **Confidence Scoring**: Galileo observability with multi-factor confidence metrics
+- 🚀 **REST API & WebSocket**: FastAPI server for frontend integration with real-time updates
 - ⚡ **Async Operations**: Efficient parallel scraping and processing
 - 💡 **Clear Reasoning**: Every recommendation comes with detailed pros, cons, and reasoning
 - 💰 **Budget-Aware**: Focuses on purchases $500+ with budget filtering
@@ -32,6 +33,7 @@ Mina researches premium products across retailers, analyzes reviews, and deliver
 - **Browser Use**: Cloud browser automation for anti-bot protected scraping
 - **Daytona**: Secure sandbox environment for code execution and data processing
 - **Galileo**: Observability and confidence score tracing
+- **FastAPI**: Modern web framework for REST API and WebSocket support
 - **Python 3.8+**: Core implementation with async/await support
 - **Pandas & NumPy**: Data processing and analysis
 
@@ -71,6 +73,38 @@ cp .env.example .env
 **Note**: Mina works without API keys using mock data and fallback mechanisms for testing/development.
 
 ## Usage
+
+### API Server (for Frontend Integration)
+
+Run the FastAPI server to enable frontend integration:
+
+```bash
+python api_server.py
+```
+
+The server starts on `http://localhost:8000` with the following endpoints:
+
+- **Health Check**: `GET /api/health` - Check server status and integrations
+- **Product Search**: `POST /api/search` - Search for products based on requirements
+- **WebSocket**: `ws://localhost:8000/ws` - Real-time search updates
+
+**Example API Request:**
+```bash
+curl -X POST http://localhost:8000/api/search \
+  -H "Content-Type: application/json" \
+  -d '{
+    "category": "laptop",
+    "budget_max": 3000,
+    "priorities": ["Performance", "Battery Life"],
+    "specific_needs": "For software development"
+  }'
+```
+
+**Interactive API Documentation:**
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
+
+For detailed API documentation and configuration, see [START_API.md](START_API.md).
 
 ### Quick Demo
 
@@ -204,12 +238,15 @@ All scoring steps are logged via Galileo's @log decorators for full transparency
 Mina/
 ├── mina_agent.py           # Core agent with all integrations
 ├── mina_cli.py             # Command-line interface
+├── api_server.py           # FastAPI server for frontend integration
 ├── demo_integrations.py    # Full integration demo
 ├── requirements.txt        # Python dependencies
 ├── .env.example            # Environment variable template
 ├── test_mina.py            # Core unit tests
+├── test_api.py             # API endpoint tests
 ├── test_integrations.py    # Integration tests
 ├── examples/               # Usage examples
+├── START_API.md            # API server documentation
 ├── .gitignore             # Git ignore rules
 └── README.md              # This file
 ```
@@ -220,10 +257,13 @@ Mina/
 # Run core unit tests
 python test_mina.py
 
+# Run API tests
+python test_api.py
+
 # Run integration tests
 python test_integrations.py
 
-# Or use pytest for both
+# Or use pytest for all
 pip install pytest pytest-cov
 pytest
 
@@ -257,6 +297,7 @@ def my_function():
 - [x] Galileo observability and confidence tracing
 - [x] Claude Sonnet 4 AI analysis
 - [x] Async workflow support
+- [x] FastAPI REST API and WebSocket support for frontend integration
 - [ ] Live scraping from major retailers (Best Buy, Amazon, B&H Photo)
 - [ ] Enhanced parsing for product specifications
 - [ ] Expanded product categories (TVs, cameras, watches)
