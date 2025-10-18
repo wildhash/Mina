@@ -290,7 +290,7 @@ Once you're up and running:
 2. **Explore Integration Guide**: See `BACKEND_INTEGRATIONS.md` for deep dives
 3. **Try Examples**: Run scripts in the `examples/` directory
 4. **Customize**: Modify priorities and categories for your needs
-5. **Contribute**: See `CONTRIBUTING.md` for guidelines
+5. **Share Feedback**: Open an issue on GitHub with suggestions
 
 ---
 
