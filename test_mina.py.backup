@@ -141,6 +141,13 @@ def test_generate_recommendations():
 
 
 
+if __name__ == "__main__":
+
+
+# ============================================================================
+# COMPREHENSIVE TESTS FOR MINA_AGENT.PY - EXPANDED COVERAGE
+# ============================================================================
+
 def test_product_option_dataclass():
     """Test ProductOption dataclass creation and attributes."""
     product = ProductOption(
@@ -661,7 +668,6 @@ def test_multiple_retailers_in_results():
     assert len(retailers) >= 2
 
 
-
 def test_product_specs_completeness():
     """Test that products have complete specifications."""
     agent = MinaAgent()
@@ -703,7 +709,7 @@ def test_product_specs_completeness():
             test_func()
             print(f"✓ {test_name}")
             passed += 1
-        except AssertionError as e:
+        except Exception as e:
             print(f"✗ {test_name}: {e}")
             failed += 1
     
