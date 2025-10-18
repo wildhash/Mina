@@ -522,5 +522,5 @@ See CONTRIBUTING.md for guidelines
 ## Support
 
 - Documentation: README.md, INTEGRATION.md
-- Issues: GitHub Issues
-- Email: support@mina-ai.com
+- Issues: GitHub Issues  
+- For questions or feedback, please open a GitHub issue

@@ -69,7 +69,7 @@ Mina/
 - **Python 3.8+**: Core implementation language
 - **Anthropic Claude**: AI-powered analysis (integration ready)
 - **Browser Use**: Web automation framework (integration ready)
-- **Galileo.ai**: Confidence scoring methodology (implemented)
+- **Galileo.ai Methodology**: Multi-factor confidence scoring inspired by Galileo's approach to uncertainty quantification and transparent AI decision-making
 - **Daytona.io**: Development environment support
 
 ### Key Capabilities
@@ -145,7 +145,8 @@ Customize behavior in `config.ini`:
 
 ### Performance
 
-- Response time: < 30 seconds per workflow
+- Response time: < 30 seconds per complete workflow (with mock data; actual times vary with live API calls)
+- Complete workflow includes: category selection → requirements gathering → retailer browsing → AI analysis → confidence scoring → recommendation generation
 - Handles 100+ products efficiently
 - Memory efficient with streaming processing
 - Scalable architecture ready for production
@@ -161,7 +162,7 @@ Customize behavior in `config.ini`:
 
 - Repository: https://github.com/wildhash/Mina
 - Issues: https://github.com/wildhash/Mina/issues
-- Email: support@mina-ai.com
+- For questions or feedback, please open a GitHub issue
 
 ---
 

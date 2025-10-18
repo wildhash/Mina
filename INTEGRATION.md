@@ -361,4 +361,4 @@ def test_agent_without_api_key(mock_anthropic):
 For integration issues:
 - Documentation: [Mina Docs](https://github.com/wildhash/Mina)
 - Issues: [GitHub Issues](https://github.com/wildhash/Mina/issues)
-- Email: support@mina-ai.com
+- For questions or feedback, please open a GitHub issue
