@@ -1,5 +1,18 @@
-anthropic>=0.18.0
-browser-use>=0.1.0
-python-dotenv>=1.0.0
+# Core
+python-dotenv==1.0.0
+anthropic==0.40.0
+
+# Integrations
+browser-use==1.0.0
+daytona==0.2.0
+galileo-sdk[openai]==2.0.0
+
+# Data processing
+pandas==2.0.0
+numpy==1.24.0
+
+# Utilities
+pydantic==2.0.0
+aiohttp==3.9.0
 requests>=2.31.0
 colorama>=0.4.6
