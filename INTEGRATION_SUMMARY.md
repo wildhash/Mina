@@ -285,7 +285,11 @@ Content-Type: application/json
 
 3. **Use in frontend:**
    ```typescript
+   // Using Next.js path alias (configured in tsconfig.json)
    import { minaClient } from '@/lib/api-client';
+   
+   // Or using relative path
+   // import { minaClient } from '../lib/api-client';
    
    const results = await minaClient.searchProducts({
      category: 'laptop',
